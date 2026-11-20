@@ -3,7 +3,7 @@ Sarlavha: UstozAI — Sun'iy intellekt yordamida chet tillarini o'rganing
 
 Taglavha: Har bir o'quvchi uchun 24/7 shaxsiy AI til repetitori
 
-Vizual tavsiya: Smartfon ekranida suhbatlashayotgan AI yordamchi interfeysi maketi, zamonaviy to'q ko'k va moviy ranglar uyg'unligi.
+Vizual tavsiya: Smartfon ekranida suhbatlashayotgan AI yordamchi interfeysi maketi.
 
 Spiker izohi: “Assalomu alaykum! Bugun sizlarga chet tillarini o‘rganishni tubdan o‘zgartiruvchi UstozAI startap loyihasini taqdim etamiz. Bizning maqsadimiz — sifatli til ta’limini hamma uchun qulay va hamyonbop qilish.”
 Sarlavha: Nega ko'pchilik chet tilida erkin gapira olmaydi?
