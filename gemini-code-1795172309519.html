@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UstozAI — Sun'iy intellekt yordamida chet tillarini o'rganing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #070b19;
+      --bg-card: #10172d;
+      --bg-card-hover: #16203d;
+      --primary: #3b82f6;
+      --accent: #8b5cf6;
+      --cyan: #22d3ee;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.16);
+      --gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 25, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 74px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--gradient);
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -5px rgba(139, 92, 246, 0.55);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 88px 0 72px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 780px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.22), rgba(139, 92, 246, 0.12) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.14);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .stat span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Demo Mockup */
+    .phone-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .phone-status {
+      font-size: 0.85rem;
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+    }
+
+    .msg {
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      max-width: 88%;
+    }
+
+    .msg-ai {
+      background: rgba(59, 130, 246, 0.16);
+      border: 1px solid rgba(59, 130, 246, 0.28);
+      align-self: flex-start;
+    }
+
+    .msg-user {
+      background: var(--gradient);
+      color: #fff;
+      align-self: flex-end;
+    }
+
+    .feedback-pill {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-form input {
+      flex: 1;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 14px;
+      color: var(--text-main);
+      font-family: inherit;
+      outline: none;
+    }
+
+    .chat-form input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Sections */
+    section {
+      padding: 76px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 48px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+    }
+
+    /* Roadmap */
+    .roadmap-step {
+      position: relative;
+    }
+
+    .step-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    /* CTA / Contact */
+    .cta-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(139, 92, 246, 0.18));
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 26px;
+      padding: 48px 32px;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 24px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer a {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">
+        <span class="logo-badge">U</span>
+        <span>UstozAI</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#muammo">Muammo</a></li>
+        <li><a href="#imkoniyatlar">Imkoniyatlar</a></li>
+        <li><a href="#yol-xaritasi">Yo'l xaritasi</a></li>
+        <li><a href="#aloqa">Hamkorlik</a></li>
+      </ul>
+      <a href="#aloqa" class="btn btn-primary">Sinab ko'rish</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="tag">EdTech + Sun'iy Intellekt Startapi</div>
+          <h1>Chet tillarini <span>shaxsiy AI ustoz</span> bilan tez o'rganing</h1>
+          <p>
+            UstozAI — 24/7 rejimda ishlaydigan aqlli til o'qituvchisi. Jonli muloqot qiling,
+            talaffuzingizni tekshiring va murakkab qoidalarni o'zbek tilida sodda tushunib oling.
+          </p>
+          <div class="hero-actions">
+            <a href="#aloqa" class="btn btn-primary">Erta kirish (Early Access)</a>
+            <a href="#imkoniyatlar" class="btn btn-secondary">Funksiyalarni ko'rish</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Doimiy amaliyot</span>
+            </div>
+            <div class="stat">
+              <strong>A1–C1</strong>
+              <span>Moslashuvchan daraja</span>
+            </div>
+            <div class="stat">
+              <strong>4–5x</strong>
+              <span>Hamyonbop narx</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Chat Preview -->
+        <div class="phone-card">
+          <div class="phone-top">
+            <div>
+              <strong>UstozAI Tutor</strong><br />
+              <small style="color: var(--text-muted);">Ingliz tili • Suhbat mashqi</small>
+            </div>
+            <span class="phone-status">● Onlayn</span>
+          </div>
+
+          <div class="chat-box" id="chatBox">
+            <div class="msg msg-ai">
+              Salom! Bugun ish suhbati (job interview) mavzusida inglizcha gaplashamizmi? Qisqacha o'zingizni tanishtiring.
+            </div>
+            <div class="msg msg-user">
+              Hello! My name is Aziz and I am a junior developer.
+              <div class="feedback-pill">✓ Grammatika: A'lo • Talaffuz: 94%</div>
+            </div>
+            <div class="msg msg-ai">
+              Great start, Aziz! A small tip: say "junior software developer" for clearer context. What projects have you built?
+            </div>
+          </div>
+
+          <form class="chat-form" id="demoForm">
+            <input
+              type="text"
+              id="userInput"
+              placeholder="Inglizcha javob yozing (masalan: I build web apps)..."
+              required
+            />
+            <button type="submit" class="btn btn-primary">Yuborish</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="muammo">
+      <div class="container">
+        <div class="section-header">
+          <h2>Nega ko'pchilik til o'rganishda to'xtab qoladi?</h2>
+          <p>An'anaviy o'qitish usullari bugungi o'quvchining ehtiyojlari va sur'atiga har doim ham mos kelmaydi.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="icon-box">01</div>
+            <h3>Yuqori xarajatlar</h3>
+            <p>Sifatli shaxsiy repetitorlar va o'quv markazlari narxi muntazam shug'ullanish uchun qimmatlik qiladi.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">02</div>
+            <h3>Jonli nutq amaliyotining kamligi</h3>
+            <p>Qoidalar yodlanadi, ammo suhbat muhiti bo'lmagani sababli erkin gapirish ko'nikmasi rivojlanmaydi.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">03</div>
+            <h3>Xato qilishdan qo'rqish</h3>
+            <p>O'quvchilar guruhda yoki boshqalar oldida xato gapirishdan tortinib, nutq faolligini cheklaydi.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">04</div>
+            <h3>Bir xil shablon dasturlar</h3>
+            <p>Standart kurslar foydalanuvchining maqsadi (IELTS, ish, sayohat) va individual darajasiga moslashmaydi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="imkoniyatlar">
+      <div class="container">
+        <div class="section-header">
+          <h2>UstozAI qanday yordam beradi?</h2>
+          <p>Har bir foydalanuvchiga moslashuvchi aqlli o'quv muhiti.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon-box">AI</div>
+            <h3>24/7 Suhbatdosh</h3>
+            <p>Istalgan vaqt va mavzuda sun'iy intellekt bilan suhbatlashing — kutish va jadvalga bog'lanish shart emas.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">🎙</div>
+            <h3>Talaffuz va grammatika</h3>
+            <p>Nutqingizdagi xatolar va uslubiy kamchiliklar darhol tahlil qilinib, to'g'ri muqobillar ko'rsatiladi.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">UZ</div>
+            <h3>Ona tilida tushuntirish</h3>
+            <p>Murakkab qoidalar va yangi so'zlar o'zbek tilida aniq hamda tushunarli misollar bilan izohlanadi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="yol-xaritasi">
+      <div class="container">
+        <div class="section-header">
+          <h2>Yo'l xaritasi</h2>
+          <p>Loyihani bosqichma-bosqich rivojlantirish va kengaytirish rejamiz.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card roadmap-step">
+            <span class="step-badge">1-bosqich • MVP</span>
+            <h3>Asosiy AI modul</h3>
+            <p>Loyiha arxitekturasini mustahkamlash va ingliz tili bo'yicha interaktiv suhbat hamda tahlil prototipini ishga tushirish.</p>
+          </div>
+          <div class="card roadmap-step">
+            <span class="step-badge">2-bosqich • Kengayish</span>
+            <h3>Mobil ilova va yangi tillar</h3>
+            <p>Android va iOS tajribasini rivojlantirish, rus va koreys tillarini qo'shish hamda ilk faol foydalanuvchilarni jalb qilish.</p>
+          </div>
+          <div class="card roadmap-step">
+            <span class="step-badge">3-bosqich • Masshtablash</span>
+            <h3>Mintaqaviy bozor va B2B</h3>
+            <p>O'quv markazlari va kompaniyalar uchun yechimlar taqdim etish hamda Markaziy Osiyo bozoriga chiqish.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="aloqa">
+      <div class="container">
+        <div class="cta-box">
+          <h2>UstozAI bilan birga o'sing</h2>
+          <p>
+            Loyihani sinab ko'rmoqchimisiz, texnik hamkorlik yoki investitsiya bo'yicha taklif bermoqchimisiz?
+            Biz bilan bog'laning.
+          </p>
+          <div class="hero-actions" style="justify-content: center; margin-bottom: 0;">
+            <a
+              href="https://github.com/ziyodullaolimboyev0812-beep/UstozAI"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              GitHub repositoriyasi
+            </a>
+            <button type="button" class="btn btn-secondary" id="copyInfoBtn">
+              Loyiha ma'lumotini nusxalash
+            </button>
+          </div>
+          <p id="copyStatus" style="margin-top: 14px; font-size: 0.88rem; color: var(--cyan);"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> UstozAI • Asoschi: Ziyodulla Olimboyev</div>
+      <div>
+        <a href="https://github.com/ziyodullaolimboyev0812-beep/UstozAI" target="_blank" rel="noopener noreferrer">
+          github.com/ziyodullaolimboyev0812-beep/UstozAI
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const demoForm = document.getElementById("demoForm");
+    const userInput = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    demoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      const userMsg = document.createElement("div");
+      userMsg.className = "msg msg-user";
+      userMsg.innerHTML = `${escapeHtml(text)}<div class="feedback-pill">✓ Tahlil: Tushunarli gap • Davom eting!</div>`;
+      chatBox.appendChild(userMsg);
+
+      const aiMsg = document.createElement("div");
+      aiMsg.className = "msg msg-ai";
+      aiMsg.textContent = "Ajoyib! Endi ushbu fikrni yana biroz batafsilroq tushuntirib bera olasizmi?";
+      setTimeout(() => {
+        chatBox.appendChild(aiMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 300);
+
+      userInput.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    const copyBtn = document.getElementById("copyInfoBtn");
+    const copyStatus = document.getElementById("copyStatus");
+    copyBtn.addEventListener("click", async () => {
+      const infoText = "UstozAI — Sun'iy intellekt yordamida chet tillarini o'rganish loyihasi. GitHub: https://github.com/ziyodullaolimboyev0812-beep/UstozAI";
+      try {
+        await navigator.clipboard.writeText(infoText);
+        copyStatus.textContent = "Loyiha havolasi va ma'lumoti nusxalandi!";
+      } catch {
+        copyStatus.textContent = infoText;
+      }
+    });
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
